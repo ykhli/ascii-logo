@@ -6,6 +6,7 @@ I built this so I can generate a ASCII logo and run it through my laser cutter. 
 <img width="1063" alt="Screenshot 2025-03-24 at 11 29 33 AM" src="https://github.com/user-attachments/assets/2c103862-abce-40c0-86be-b619ee142f07" />
 
 Laser cut on Midori notebook: 
+
 <img width="577" alt="Screenshot 2025-03-24 at 11 31 33 AM" src="https://github.com/user-attachments/assets/b9c49536-a3a5-48e8-b966-0879f7dd685f" />
 
 
