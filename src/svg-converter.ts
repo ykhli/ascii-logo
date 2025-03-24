@@ -18,14 +18,33 @@ export function createSVG(asciiArt: string, options: SVGOptions): string {
   const lines = asciiArt.split("\n");
   const lineHeight = 16; // Pixel height for each text line
   const fontFamily = "monospace";
-  const fontSize = "14px";
+  const fontSize = 14; // Numeric value for calculations
+  const padding = 20; // Padding around the text
 
-  // Calculate dimensions
-  const width = options.width || "500";
-  const height = options.height || `${lines.length * lineHeight + 20}`;
+  // Calculate the width needed based on the longest line
+  // Each character in monospace font should be given enough space
+  const maxLineLength = Math.max(...lines.map((line) => line.length));
+  // Add a safety margin to prevent text overflow
+  const charWidth = fontSize * 0.7; // Slightly wider character estimation
+  const calculatedWidth = maxLineLength * charWidth + padding * 2;
+
+  // Use calculated width if no width provided or if calculated width is larger
+  const width =
+    options.width && options.width !== "auto"
+      ? Math.max(parseInt(options.width), calculatedWidth).toString()
+      : calculatedWidth.toString();
+
+  // Calculate height with adequate space
+  const calculatedHeight = lines.length * lineHeight + padding * 2;
+  const height = options.height
+    ? Math.max(parseInt(options.height), calculatedHeight).toString()
+    : calculatedHeight.toString();
 
   // Create SVG
   const svg = svgBuilder.newInstance().width(width).height(height);
+
+  // Unfortunately, svg-builder doesn't have an attr method for adding attributes
+  // We'll need to manually add viewBox and preserveAspectRatio to the output later
 
   // Add background if not transparent
   if (options.backgroundColor !== "transparent") {
@@ -45,15 +64,35 @@ export function createSVG(asciiArt: string, options: SVGOptions): string {
 
     svg.text(
       {
-        x: 10,
-        y: (index + 1) * lineHeight,
+        x: padding,
+        y: padding + (index + 1) * lineHeight,
         "font-family": fontFamily,
-        "font-size": fontSize,
+        "font-size": `${fontSize}px`,
         fill: options.color,
+        "text-rendering": "optimizeLegibility",
+        "shape-rendering": "crispEdges",
+        "white-space": "pre",
       },
       preservedLine
     );
   });
 
-  return svg.render();
+  // Get the rendered SVG
+  let svgOutput = svg.render();
+
+  // Manually add viewBox and preserveAspectRatio attributes to the SVG tag
+  svgOutput = svgOutput.replace(
+    '<svg width="' + width + '" height="' + height + '"',
+    '<svg width="' +
+      width +
+      '" height="' +
+      height +
+      '" viewBox="0 0 ' +
+      width +
+      " " +
+      height +
+      '" preserveAspectRatio="xMinYMin meet"'
+  );
+
+  return svgOutput;
 }

@@ -10,8 +10,9 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
+    "viewer": "vite tools/dev",
     "prepare": "npm run build",
-    "prepublishOnly": "chmod +x dist/index.js"
+    "prepublishOnly": "chmod +x dist/index.js && npm run build"
   },
   "keywords": [
     "ascii",
@@ -20,8 +21,16 @@
     "cli",
     "figlet"
   ],
-  "author": "",
+  "author": "Yoko Li",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ascii-logo-generator.git"
+  },
+  "homepage": "https://github.com/yourusername/ascii-logo-generator#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/ascii-logo-generator/issues"
+  },
   "dependencies": {
     "@types/figlet": "^1.7.0",
     "@types/node": "^22.13.11",
@@ -32,6 +41,15 @@
     "typescript": "^5.8.2"
   },
   "devDependencies": {
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "vite": "^5.4.14"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
