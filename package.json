@@ -1,0 +1,37 @@
+{
+  "name": "ascii-logo-generator",
+  "version": "1.0.0",
+  "description": "CLI tool to generate ASCII fonts and convert them to SVG logos",
+  "main": "dist/index.js",
+  "bin": {
+    "ascii-logo": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "chmod +x dist/index.js"
+  },
+  "keywords": [
+    "ascii",
+    "logo",
+    "svg",
+    "cli",
+    "figlet"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/figlet": "^1.7.0",
+    "@types/node": "^22.13.11",
+    "commander": "^13.1.0",
+    "figlet": "^1.8.0",
+    "svg-builder": "^2.0.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
+}
